@@ -1,0 +1,11 @@
+name: "linorobot2"
+acronym: "linorobot2"
+family: "Linorobot"
+vendor: "Linorobot"
+type: "AGV"
+version: "0.1.0-alpha.1"
+deploymentType: "Virtual"
+distro: "Humble"
+hasBuild: true
+hasLaunch: true
+minStorageAmount: 40000
