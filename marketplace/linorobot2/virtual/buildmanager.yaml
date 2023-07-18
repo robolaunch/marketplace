@@ -1,0 +1,37 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedBuildManager
+metadata:
+  name: <BUILDMANAGER-NAME>
+  namespace: <FLEET-NAME>
+spec:
+  placement:
+    clusters:
+    - name: <CLOUD-INSTANCE-NAME>
+  template:
+    metadata:
+      labels:
+        robolaunch.io/target-robot: <ROBOT-NAME>
+      name: <BUILDMANAGER-NAME>
+      namespace: <FLEET-NAME>
+    spec:
+      steps:
+      - command: |-
+          source /opt/ros/humble/setup.bash && \
+          rosdep update && rosdep install --from-path src --ignore-src -y --skip-keys microxrcedds_agent --skip-keys micro_ros_agent
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: dependencies
+        workspace: ws-1
+      - command: |-
+          apt-get install -y ros-humble-image-transport-plugins
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: compress-pkg
+        workspace: ws-1
+      - command: |-
+          source /opt/ros/humble/setup.bash && \
+          colcon build
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: build
+        workspace: ws-1
