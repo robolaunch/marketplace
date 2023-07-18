@@ -1,4 +1,5 @@
 name: "Cloudy Mini-AGV"
+acronym: "cloudy-mini-agv"
 family: "Cloudy"
 vendor: "robolaunch"
 type: "AGV"
