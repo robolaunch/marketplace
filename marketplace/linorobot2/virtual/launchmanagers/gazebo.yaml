@@ -1,0 +1,33 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedLaunchManager
+metadata:
+  name: gazebo
+  namespace: <FLEET-NAME>
+spec:
+  placement:
+    clusters:
+    - name: <CLOUD-INSTANCE-NAME>
+  template:
+    metadata:
+      labels:
+        robolaunch.io/target-robot: <ROBOT-NAME>
+        robolaunch.io/target-vdi: <VDI-NAME>
+      name: gazebo
+      namespace: <FLEET-NAME>
+    spec:
+      launches:
+        gazebo:
+          container:
+            display: false
+            env:
+            - name: LINOROBOT2_BASE
+              value: mecanum
+            privileged: false
+          entrypoint:
+            cmd: ros2 launch linorobot2_gazebo gazebo.launch.py
+            disableSourcingWs: false
+            type: Custom
+          instances:
+          - <CLOUD-INSTANCE-NAME>
+          namespacing: false
+          workspace: ws-1

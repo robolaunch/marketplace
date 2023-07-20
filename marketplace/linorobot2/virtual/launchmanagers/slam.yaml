@@ -1,7 +1,7 @@
 apiVersion: types.kubefed.io/v1beta1
 kind: FederatedLaunchManager
 metadata:
-  name: <LAUNCHMANAGER-NAME>
+  name: slam
   namespace: <FLEET-NAME>
 spec:
   placement:
@@ -11,8 +11,8 @@ spec:
     metadata:
       labels:
         robolaunch.io/target-robot: <ROBOT-NAME>
-        robolaunch.io/target-vdi: abc
-      name: <LAUNCHMANAGER-NAME>
+        robolaunch.io/target-vdi: <VDI-NAME>
+      name: slam
       namespace: <FLEET-NAME>
     spec:
       launches:
@@ -24,7 +24,7 @@ spec:
               value: mecanum
             privileged: false
           entrypoint:
-            cmd: ros2 launch linorobot2_gazebo gazebo.launch.py
+            cmd: ros2 launch linorobot2_navigation slam.launch.py
             disableSourcingWs: false
             type: Custom
           instances:
