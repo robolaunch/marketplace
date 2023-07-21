@@ -1,0 +1,11 @@
+name: "CARLA Simulator"
+acronym: "carla"
+family: "CARLA"
+vendor: "CARLA"
+type: "Environment"
+version: "0.1.0-alpha.1"
+deploymentType: "Virtual"
+distro: "Foxy"
+hasBuild: false
+hasLaunch: false
+minStorageAmount: 70000
