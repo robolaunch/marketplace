@@ -9,3 +9,7 @@ distro: "Humble"
 hasBuild: false
 hasLaunch: false
 minStorageAmount: 40000
+trial:
+    imageUser: robolaunchio
+    imageRepository: devspace-simulation
+    imageTag: ros2-humble-jammy-xfce-cuda-12.0.0-0.1.4

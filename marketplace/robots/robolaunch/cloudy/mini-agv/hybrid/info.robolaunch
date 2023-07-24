@@ -9,3 +9,7 @@ distro: "Humble" # or "Galactic", "Foxy", "Iron"
 hasBuild: true # or false
 hasLaunch: true # or false
 minStorageAmount: 40000 # Mb
+trial:
+    imageUser: robolaunchio
+    imageRepository: devspace-robotics-prebuilt
+    imageTag: <TBD>
