@@ -9,7 +9,7 @@ distro: "Humble"
 hasBuild: true
 hasLaunch: true
 minStorageAmount: 40000
-trial:
+trialImage:
     imageUser: robolaunchio
     imageRepository: devspace-robotics-prebuilt
     imageTag: <TBD>

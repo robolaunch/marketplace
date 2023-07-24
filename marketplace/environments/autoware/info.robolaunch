@@ -9,7 +9,7 @@ distro: "Humble"
 hasBuild: false
 hasLaunch: false
 minStorageAmount: 70000
-trial:
+trialImage:
     imageUser: robolaunchio
     imageRepository: devspace-simulation
     imageTag: <TBD>
