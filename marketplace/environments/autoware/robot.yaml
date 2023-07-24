@@ -1,0 +1,89 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedRobot
+metadata:
+  name: autoware-test
+  namespace: demo-fleet
+spec:
+  overrides:
+  - clusterName: demo-ci-005
+    clusterOverrides:
+    - op: add
+      path: /metadata/labels
+      value:
+        robolaunch.io/cloud-instance: demo-ci-005
+        robolaunch.io/cloud-instance-alias: org-demonstration-61728108
+        robolaunch.io/organization: org-demonstration
+        robolaunch.io/region: eu-central-1
+        robolaunch.io/team: org_demonstration
+        robolaunch.io/robot-image-user: "robolaunchio"
+        robolaunch.io/robot-image-repository: "devspace-robotics"
+        robolaunch.io/robot-image-tag: "ros2-humble-jammy-xfce-cuda-12.0.0-0.1.4"
+    - path: /spec/rosBridgeTemplate/ros2/enabled
+      value: true
+    - path: /spec/robotDevSuiteTemplate/vdiEnabled
+      value: true
+    - path: /spec/robotDevSuiteTemplate/ideEnabled
+      value: true
+  placement:
+    clusters:
+    - name: demo-ci-005
+  template:
+    metadata:
+      name: autoware-test
+      namespace: demo-fleet
+    spec:
+      discoveryServerTemplate:
+        cluster: demo-ci-005
+        hostname: demo-fleet
+        reference:
+          name: demo-fleet-discovery
+          namespace: demo-fleet
+        subdomain: org-demonstration
+        type: Client
+      distributions:
+      - humble
+      rmwImplementation: rmw_fastrtps_cpp
+      robotDevSuiteTemplate:
+        ideEnabled: true
+        robotIDETemplate:
+          display: true
+          ingress: true
+          privileged: false
+          resources:
+            gpuCore: 1
+          serviceType: ClusterIP
+        robotVDITemplate:
+          ingress: true
+          nat1to1: ""
+          privileged: false
+          resolution: 2048x1152
+          resources:
+            gpuCore: 1
+          serviceType: NodePort
+          webrtcPortRange: 30006-30010
+        vdiEnabled: true
+      rootDNSConfig:
+        host: robolaunch.cloud
+      rosBridgeTemplate:
+        ingress: true
+        ros2:
+          distro: foxy
+          enabled: true
+        serviceType: NodePort
+      storage:
+        amount: 55
+        storageClassConfig:
+          accessMode: ReadWriteOnce
+          name: openebs-hostpath
+      tlsSecretRef:
+        name: prod-tls
+        namespace: demo-fleet
+      workspaceManagerTemplate:
+        workspaces:
+        - distro: humble
+          name: ws-1
+          repositories:
+            cloudy:
+              branch: main
+              url: https://github.com/robolaunch/cloudy
+        workspacesPath: /home/robolaunch/workspaces
