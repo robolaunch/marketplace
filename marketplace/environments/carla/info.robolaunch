@@ -11,5 +11,5 @@ hasLaunch: false
 minStorageAmount: 70000
 trialImage:
     imageUser: robolaunchio
-    imageRepository: devspace-simulation
-    imageTag: ros2-humble-jammy-xfce-cuda-12.0.0-0.1.4
+    imageRepository: devspace-robotics
+    imageTag: carla-foxy-0.9.13-focal-xfce-0.1.4
