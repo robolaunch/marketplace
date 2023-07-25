@@ -13,3 +13,6 @@ trialImage:
     imageUser: robolaunchio
     imageRepository: devspace-robotics
     imageTag: unity3d-foxy-3.5.0-focal-xfce-0.1.4
+    sampleRepository:
+        url: https://github.com/pixelnest/tutorial-2d-game-unity
+        branch: master

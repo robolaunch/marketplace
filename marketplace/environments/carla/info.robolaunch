@@ -13,3 +13,6 @@ trialImage:
     imageUser: robolaunchio
     imageRepository: devspace-robotics
     imageTag: carla-foxy-0.9.13-focal-xfce-0.1.4
+    sampleRepository:
+        url: https://github.com/carla-simulator/driving-benchmarks
+        branch: master
