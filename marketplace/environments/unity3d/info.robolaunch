@@ -3,7 +3,7 @@ acronym: "unity3d"
 family: "Unity"
 vendor: "Unity Technologies"
 type: "Environment"
-version: "0.1.0-alpha.1"
+version: "3.5.0"
 deploymentType: "Virtual"
 distro: "Foxy"
 hasBuild: false

@@ -3,7 +3,7 @@ acronym: "isaacgym"
 family: "NVIDIA"
 vendor: "NVIDIA"
 type: "Environment"
-version: "0.1.0-alpha.1"
+version: "Preview 4"
 deploymentType: "Virtual"
 distro: "Foxy"
 hasBuild: false

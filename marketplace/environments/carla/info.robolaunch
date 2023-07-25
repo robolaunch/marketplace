@@ -3,7 +3,7 @@ acronym: "carla"
 family: "CARLA"
 vendor: "CARLA"
 type: "Environment"
-version: "0.1.0-alpha.1"
+version: "0.9.13"
 deploymentType: "Virtual"
 distro: "Foxy"
 hasBuild: false
