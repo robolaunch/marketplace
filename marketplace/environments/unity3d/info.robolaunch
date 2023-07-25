@@ -1,0 +1,15 @@
+name: "Unity 3D"
+acronym: "unity3d"
+family: "Unity"
+vendor: "Unity Technologies"
+type: "Environment"
+version: "0.1.0-alpha.1"
+deploymentType: "Virtual"
+distro: "Foxy"
+hasBuild: false
+hasLaunch: false
+minStorageAmount: 70000
+trialImage:
+    imageUser: robolaunchio
+    imageRepository: devspace-robotics
+    imageTag: unity3d-foxy-3.5.0-focal-xfce-0.1.4
