@@ -1,0 +1,50 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedBuildManager
+metadata:
+  name: build-cloudy
+  namespace: <FLEET-NAME>
+spec:
+  template:
+    metadata:
+      labels:
+        robolaunch.io/target-robot: cloudy
+      name: build-cloudy
+      namespace: <FLEET-NAME>
+    spec:
+      steps:
+      - name: rosdep-cloudy
+        workspace: cloudy-ws
+        command: |
+          cd $WORKSPACES_PATH/cloudy-ws && \
+          source /opt/ros/humble/setup.bash && \
+          apt-get update && \
+          rosdep update && \
+          rosdep install --from-path src --ignore-src -y -r
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+      - name: compress-pkgs
+        workspace: cloudy-ws
+        command: |
+          apt-get update && \
+          apt-get install -y ros-humble-image-transport-plugins ros-humble-rqt-image-view
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+      - name: build-cloudy
+        workspace: cloudy-ws
+        command: |
+          cd $WORKSPACES_PATH/cloudy-ws && \
+          source /opt/ros/humble/setup.bash && \
+          colcon build
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+      - name: build-2-cloudy
+        workspace: cloudy-ws
+        command: |
+          cd $WORKSPACES_PATH/cloudy-ws && \
+          source /opt/ros/humble/setup.bash && \
+          colcon build
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+  placement:
+    clusters:
+    - name: <CLOUD-INSTANCE-NAME>
