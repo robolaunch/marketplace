@@ -6,7 +6,7 @@ type: "AGV"
 version: "0.1.0-alpha.1"
 deploymentType: "Virtual"
 distro: "Humble"
-hasBuild: true
+hasBuild: false
 hasLaunch: false
 minStorageAmount: 40000
 trialImage:
