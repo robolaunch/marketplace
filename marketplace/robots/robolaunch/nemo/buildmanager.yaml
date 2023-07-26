@@ -1,0 +1,61 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedBuildManager
+metadata:
+  name: nemo-build
+  namespace: <FLEET-NAME>
+spec:
+  placement:
+    clusters:
+    - name: <CLOUD-INSTANCE-NAME>
+  template:
+    metadata:
+      labels:
+        robolaunch.io/target-robot: <ROBOT-NAME>
+      name: nemo-build
+      namespace: <FLEET-NAME>
+    spec:
+      steps:
+      - command: |-
+          sudo apt-get install -y \
+            python3-colcon-common-extensions \
+            build-essential \
+            g++ \
+            python3-dev \
+            autotools-dev \
+            libicu-dev \
+            libbz2-dev \
+            libboost-all-dev\
+            ros-humble-gazebo-ros2-control \
+            ros-humble-ros2-controllers \
+            ros-humble-ros2-control \
+            ros-humble-diff-drive-controller \
+            ros-humble-nav2-* \
+            ros-humble-diff-drive-controller \
+            ros-humble-joint-state-broadcaster \
+            ros-humble-joint-state-publisher \
+            ros-humble-slam-toolbox \
+            ros-humble-hardware-interface \
+            ros-humble-controller-manager \
+            ros-humble-xacro \
+            ros-humble-twist-mux \
+            ros-humble-serial-driver \
+            ros-humble-controller-manager \
+            ros-humble-gazebo-ros2-control \
+            ros-humble-joint-state-broadcaster \
+            ros-humble-diff-drive-controller \
+            ros-humble-pcl-* \
+            ros-humble-joy \
+            ros-humble-teleop-twist-joy \
+            ros-humble-image-transport-plugins \
+            ros-humble-rviz2
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: dependencies
+        workspace: ws-1
+      - command: |-
+          source /opt/ros/humble/setup.bash && \
+          colcon build
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: build
+        workspace: ws-1
