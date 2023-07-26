@@ -1,0 +1,15 @@
+name: "Nemo"
+acronym: "nemo"
+family: "Nemo"
+vendor: "robolaunch"
+type: "AGV"
+version: "0.1.0-alpha.1"
+deploymentType: "Virtual"
+distro: "Humble"
+hasBuild: true
+hasLaunch: false
+minStorageAmount: 40000
+trialImage:
+    imageUser: robolaunchio
+    imageRepository: devspace-robotics-prebuilt
+    imageTag: <TBD>
