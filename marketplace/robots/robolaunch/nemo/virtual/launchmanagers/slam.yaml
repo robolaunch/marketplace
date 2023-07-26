@@ -1,0 +1,30 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedLaunchManager
+metadata:
+  name: slam
+  namespace: <FLEET-NAME>
+spec:
+  placement:
+    clusters:
+    - name: <CLOUD-INSTANCE-NAME>
+  template:
+    metadata:
+      labels:
+        robolaunch.io/target-robot: <ROBOT-NAME>
+        robolaunch.io/target-vdi: <VDI-NAME>
+      name: slam
+      namespace: <FLEET-NAME>
+    spec:
+      launches:
+        slam:
+          container:
+            display: true
+            privileged: false
+          entrypoint:
+            cmd: ros2 launch articubot_one online_async_launch.py
+            disableSourcingWs: false
+            type: Custom
+          instances:
+          - <CLOUD-INSTANCE-NAME>
+          namespacing: false
+          workspace: ws-1
