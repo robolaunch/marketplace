@@ -1,4 +1,4 @@
-# <img src="https://assets.website-files.com/5f6bc60e665f54db361e52a9/5f6bc60e665f546a6b1e5400_logo_yolo.png" height="40" width="40" align="top"> yolov4
+# <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--byCZN3I6--/c_imagga_scale,f_auto,fl_progressive,h_720,q_auto,w_1280/https://dev-to-uploads.s3.amazonaws.com/i/5482jc4y2k1ksvvz2hzd.png" height="40" width="40" align="top"> yolov4
 
 Darknet is a tool -- or framework -- written mostly in C which may be used for computer vision.
 It is used to both train neural networks, and then run images or video frames through those neural
