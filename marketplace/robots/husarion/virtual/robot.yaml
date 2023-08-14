@@ -1,0 +1,88 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedRobot
+metadata:
+  name: rbxl-manipulator
+  namespace: <FLEET-NAME>
+spec:
+  overrides:
+  - clusterName: <CLOUD-INSTANCE-NAME>
+    clusterOverrides:
+    - op: add
+      path: /metadata/labels
+      value:
+        robolaunch.io/cloud-instance: <CLOUD-INSTANCE-NAME>
+        robolaunch.io/cloud-instance-alias: <CLOUD-INSTANCE-ALIAS-NAME>
+        robolaunch.io/organization: <ORGANIZATION-NAME>
+        robolaunch.io/region: <REGION-NAME>
+        robolaunch.io/team: <TEAM-NAME>
+    - path: /spec/rosBridgeTemplate/ros2/enabled
+      value: true
+    - path: /spec/robotDevSuiteTemplate/vdiEnabled
+      value: true
+    - path: /spec/robotDevSuiteTemplate/ideEnabled
+      value: true
+  placement:
+    clusters:
+    - name: <CLOUD-INSTANCE-NAME>
+  template:
+    metadata:
+      name: rbxl-manipulator
+      namespace: <FLEET-NAME>
+    spec:
+      type: Robot
+      robot: 
+        discoveryServerTemplate:
+          cluster: <CLOUD-INSTANCE-NAME>
+          hostname: <FLEET-NAME>
+          reference:
+            name: <FLEET-NAME>-discovery
+            namespace: <FLEET-NAME>
+          subdomain: <ORGANIZATION-NAME>
+          type: Client
+        distributions:
+        - humble
+        rmwImplementation: rmw_fastrtps_cpp
+        rosBridgeTemplate:
+          ingress: true
+          ros2:
+            distro: foxy
+            enabled: true
+          serviceType: NodePort
+      robotDevSuiteTemplate:
+        ideEnabled: true
+        robotIDETemplate:
+          display: true
+          ingress: true
+          privileged: false
+          resources:
+            gpuCore: 1
+          serviceType: ClusterIP
+        robotVDITemplate:
+          ingress: true
+          nat1to1: ""
+          privileged: false
+          resolution: 2048x1152
+          resources:
+            gpuCore: 1
+          serviceType: NodePort
+          webrtcPortRange: <WEBRTC-PORT-RANGE>
+        vdiEnabled: true
+      rootDNSConfig:
+        host: robolaunch.cloud
+      storage:
+        amount: 40000
+        storageClassConfig:
+          accessMode: ReadWriteOnce
+          name: openebs-hostpath
+      tlsSecretRef:
+        name: prod-tls
+        namespace: <FLEET-NAME>
+      workspaceManagerTemplate:
+        workspaces:
+        - distro: humble
+          name: ws-1
+          repositories:
+            rosbot_xl_manipulation_ros:
+              branch: main
+              url: https://github.com/husarion/rosbot_xl_manipulation_ros
+        workspacesPath: /home/robolaunch/workspaces

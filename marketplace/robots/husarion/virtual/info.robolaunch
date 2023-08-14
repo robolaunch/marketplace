@@ -1,0 +1,11 @@
+name: "ROSbot XL with OpenMANIPULATOR-X"
+acronym: "rbxl-manipulator"
+family: "rosbotxl"
+vendor: "Husarion"
+type: "AGV"
+version: "0.1.0-alpha.1"
+deploymentType: "Virtual"
+distro: "Humble"
+hasBuild: true
+hasLaunch: false
+minStorageAmount: 40000

@@ -1,0 +1,52 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedBuildManager
+metadata:
+  name: build-rbxl-manipulator
+  namespace: <FLEET-NAME>
+spec:
+  placement:
+    clusters:
+    - name: <CLOUD-INSTANCE-NAME>
+  template:
+    metadata:
+      labels:
+        robolaunch.io/target-robot: <ROBOT-NAME>
+      name: build-rbxl-manipulator
+      namespace: <FLEET-NAME>
+    spec:
+      steps:
+      - command: |-
+          apt-get install -y \
+          python3-colcon-common-extensions \
+          python3-vcstool \
+          python3-rosdep \
+          ros-humble-rviz2 \
+          ros-humble-moveit
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: pre-dependencies
+        workspace: ws-1
+      - command: |-
+          vcs import src < src/rosbot_xl_manipulation_ros/rosbot_xl_manipulation/rosbot_xl_manipulation.repos && \
+          vcs import src < src/rosbot_xl_ros/rosbot_xl/rosbot_xl_hardware.repos && \
+          vcs import src < src/rosbot_xl_ros/rosbot_xl/rosbot_xl_simulation.repos && \
+          vcs import src < src/open_manipulator_x/open_manipulator_x.repos
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: vcs
+        workspace: ws-1
+      - command: |-
+          source /opt/ros/humble/setup.bash
+          rosdep update --rosdistro humble && \
+          rosdep install -i --from-path src --rosdistro humble -y
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: dependencies
+        workspace: ws-1
+      - command: |-
+          source /opt/ros/humble/setup.bash && \
+          colcon build
+        instances:
+        - <CLOUD-INSTANCE-NAME>
+        name: build
+        workspace: ws-1
